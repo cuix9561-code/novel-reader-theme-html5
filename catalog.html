@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catalog — The Last Star</title>
+  <meta name="description" content="NovelReaderHTML5 — Chapter catalog page for novel reading theme." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-card: #141414;
+      --text-primary: #f0e6c5;
+      --text-secondary: #c4b998;
+      --text-muted: #8a7e6b;
+      --accent: #d4a853;
+      --accent-hover: #e6b95e;
+      --border: #2a2a2a;
+    }
+
+    body {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .sans { font-family: 'Inter', system-ui, sans-serif; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .chapter-item {
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+    .chapter-item:hover {
+      border-left-color: var(--accent);
+      background: rgba(212, 168, 83, 0.05);
+    }
+    .chapter-item.active {
+      border-left-color: var(--accent);
+      background: rgba(212, 168, 83, 0.08);
+    }
+    .chapter-item.active .chapter-title {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#2a2a2a]">
+  <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="reader.html" class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors text-[#8a7e6b] hover:text-[#f0e6c5]" aria-label="Back to reader">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </a>
+      <span class="text-sm text-[#c4b998] font-medium">The Last Star</span>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-[#8a7e6b] sans">
+      <span>48 chapters</span>
+      <span class="w-1 h-1 rounded-full bg-[#2a2a2a]"></span>
+      <span>Updated 2 days ago</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Book Info Header -->
+<section class="py-12 border-b border-[#2a2a2a]">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="flex flex-col sm:flex-row gap-6 items-start">
+      <!-- Cover placeholder -->
+      <div class="w-28 h-40 rounded-xl bg-gradient-to-br from-[#d4a853]/20 to-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center shrink-0">
+        <svg class="w-10 h-10 text-[#d4a853]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <div class="flex-1 min-w-0">
+        <h1 class="text-2xl sm:text-3xl font-bold text-[#f0e6c5]">The Last Star</h1>
+        <p class="mt-2 text-sm text-[#8a7e6b]">by Mark Cui</p>
+        <p class="mt-3 text-sm text-[#c4b998] leading-relaxed max-w-xl">
+          An astronomer returns to a long-abandoned observatory and discovers that the signal he'd been dismissed for—a transmission from the edge of known space—has not gone silent. It has been waiting.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-2.5 py-1 bg-[#1a1a1a] rounded text-[11px] text-[#8a7e6b] sans">Science Fiction</span>
+          <span class="px-2.5 py-1 bg-[#1a1a1a] rounded text-[11px] text-[#8a7e6b] sans">Mystery</span>
+          <span class="px-2.5 py-1 bg-[#1a1a1a] rounded text-[11px] text-[#8a7e6b] sans">Serial</span>
+          <span class="px-2.5 py-1 bg-[#d4a853]/10 rounded text-[11px] text-[#d4a853] sans font-medium">Ongoing</span>
+        </div>
+        <div class="mt-4 flex gap-3 sans">
+          <a href="reader.html" class="px-5 py-2.5 bg-[#d4a853] text-[#0a0a0a] rounded-lg text-sm font-semibold hover:bg-[#e6b95e] transition-all">Start Reading</a>
+          <button class="px-5 py-2.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg text-sm text-[#c4b998] hover:border-[#d4a853]/30 transition-all">+ Follow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter List -->
+<section class="py-8 flex-1">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-lg font-semibold text-[#f0e6c5]">Table of Contents</h2>
+      <div class="flex items-center gap-2 sans">
+        <button class="px-3 py-1.5 text-xs rounded bg-[#1a1a1a] text-[#8a7e6b] hover:text-[#f0e6c5] transition-colors">All</button>
+        <button class="px-3 py-1.5 text-xs rounded bg-[#1a1a1a] text-[#8a7e6b] hover:text-[#f0e6c5] transition-colors">Unread</button>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <!-- Chapter 1 (active) -->
+      <a href="reader.html" class="chapter-item active flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#d4a853] shrink-0">01</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm font-medium text-[#f0e6c5] truncate">The Silent Observatory</p>
+            <p class="text-xs text-[#8a7e6b] mt-0.5">12 min read</p>
+          </div>
+        </div>
+        <span class="text-[10px] text-[#d4a853] font-semibold px-2 py-0.5 bg-[#d4a853]/10 rounded">Reading</span>
+      </a>
+
+      <!-- Chapters 2-12 -->
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">02</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">The Signal Returns</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">15 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">03</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">Decoding the Message</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">10 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">04</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">Old Friends, Old Wounds</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">13 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">05</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">The Committee's Secret</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">14 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">06</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">Beyond the Veil</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">11 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">07</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">A Message in the Static</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">9 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">08</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">The Countdown Begins</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">16 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">09</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">Escape from the City</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">12 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">10</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#c4b998] truncate">The Desert Array</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">14 min read</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Divider for locked chapters -->
+      <div class="pt-4 pb-2 flex items-center gap-3">
+        <div class="flex-1 h-px bg-[#2a2a2a]"></div>
+        <span class="text-[10px] text-[#6a6a6a] uppercase tracking-widest sans font-medium">Premium Chapters</span>
+        <div class="flex-1 h-px bg-[#2a2a2a]"></div>
+      </div>
+
+      <!-- Locked chapters -->
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg opacity-60">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">11</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#8a7e6b] truncate">Coordinates of Destiny</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">18 min read</p>
+          </div>
+        </div>
+        <svg class="w-4 h-4 text-[#8a7e6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </a>
+
+      <a href="reader.html" class="chapter-item flex items-center justify-between px-4 py-3 rounded-lg opacity-60">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="text-xs font-mono text-[#4a4a4a] shrink-0">12</span>
+          <div class="min-w-0">
+            <p class="chapter-title text-sm text-[#8a7e6b] truncate">The Transmission</p>
+            <p class="text-xs text-[#6a6a6a] mt-0.5">20 min read</p>
+          </div>
+        </div>
+        <svg class="w-4 h-4 text-[#8a7e6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-[#2a2a2a] py-6 text-center text-xs text-[#6a6a6a] sans">
+  <p>NovelReaderHTML5 Theme — Built with HTML5 & Tailwind CSS</p>
+</footer>
+
+</body>
+</html>

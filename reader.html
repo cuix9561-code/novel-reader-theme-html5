@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Last Star — Novel Reader</title>
+  <meta name="description" content="NovelReaderHTML5 — A professional, responsive HTML5 novel reading theme with eye-friendly display." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #141414;
+      --text-primary: #f0e6c5;
+      --text-secondary: #c4b998;
+      --text-muted: #8a7e6b;
+      --accent: #d4a853;
+      --accent-hover: #e6b95e;
+      --border: #2a2a2a;
+      --border-hover: #3a3a3a;
+    }
+
+    body {
+      font-family: 'Noto Serif SC', Georgia, 'Times New Roman', serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.9;
+    }
+
+    .sans { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* Font size controls */
+    .font-sm .reader-content p { font-size: 0.95rem; line-height: 1.8; }
+    .font-md .reader-content p { font-size: 1.1rem; line-height: 1.9; }
+    .font-lg .reader-content p { font-size: 1.3rem; line-height: 2; }
+
+    /* Progress bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      z-index: 100;
+      transition: width 0.1s ease;
+    }
+
+    /* Chapter content styling */
+    .reader-content p {
+      text-indent: 2em;
+      margin-bottom: 1.2em;
+      letter-spacing: 0.02em;
+    }
+
+    .reader-content h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 2em 0 0.5em;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .reader-content .chapter-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 1.5em 0 2em;
+      color: var(--text-secondary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+
+    /* Selection */
+    ::selection { background: rgba(212, 168, 83, 0.3); color: #fff; }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pageFlip { from { opacity: 0.7; transform: translateX(5px); } to { opacity: 1; transform: translateX(0); } }
+    .animate-in { animation: fadeIn 0.4s ease-out; }
+    .page-flip { animation: pageFlip 0.3s ease-out; }
+  </style>
+</head>
+<body>
+
+<!-- Reading Progress -->
+<div id="readingProgress" class="reading-progress" style="width: 0%"></div>
+
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#2a2a2a]">
+  <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button onclick="history.back()" class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors text-[#8a7e6b] hover:text-[#f0e6c5]" aria-label="Back">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <span class="text-sm text-[#c4b998] font-medium">Novel Reader</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <!-- Font Size Controls -->
+      <button onclick="setFontSize('sm')" class="px-2 py-1 text-xs rounded bg-[#1a1a1a] text-[#8a7e6b] hover:text-[#f0e6c5] hover:bg-[#2a2a2a] transition-all font-sans">A</button>
+      <button onclick="setFontSize('md')" class="px-2 py-1 text-sm rounded bg-[#1a1a1a] text-[#f0e6c5] border border-[#d4a853]/30 hover:bg-[#2a2a2a] transition-all font-sans">A</button>
+      <button onclick="setFontSize('lg')" class="px-2 py-1 text-base rounded bg-[#1a1a1a] text-[#8a7e6b] hover:text-[#f0e6c5] hover:bg-[#2a2a2a] transition-all font-sans">A</button>
+      <div class="w-px h-6 bg-[#2a2a2a] mx-1"></div>
+      <a href="catalog.html" class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors text-[#8a7e6b] hover:text-[#f0e6c5]" aria-label="Catalog">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Reader Content -->
+<main class="pt-20 pb-32 min-h-screen">
+  <div class="max-w-3xl mx-auto px-4 sm:px-8">
+    <article class="reader-content animate-in" id="readerContent">
+
+      <h1>The Last Star</h1>
+      <p class="chapter-title text-center text-[#8a7e6b] text-sm !no-underline !indent-0 sans" style="text-indent:0 !important">
+        Chapter 1: The Silent Observatory
+      </p>
+
+      <p>The observatory had been silent for seven years.</p>
+
+      <p>When Chen Wei stepped through the rusted iron gate, the hinges groaned like a wounded animal. The concrete path was cracked, weeds pushing through the fissures with stubborn vitality. He remembered this path well—he had walked it every night for three years, back when the sky still had meaning.</p>
+
+      <p>The dome loomed ahead, a pale grey mushroom against the darkening sky. Chen stopped at the base of the steps, his hand resting on the cold metal railing. A thin layer of dust covered everything, disturbed only by the footprints of the groundskeeper who came once a month to ensure the building hadn't collapsed.</p>
+
+      <p>"Are you sure about this?" called a voice behind him.</p>
+
+      <p>Chen turned. Li Ming stood at the gate, hands shoved deep into his coat pockets, breath misting in the cold air. His oldest friend. The only person who knew why Chen had left this place and never come back.</p>
+
+      <p>"I need to see it one last time," Chen said. "Before they tear it down."</p>
+
+      <p>Li Ming walked up the path, his shoes crunching on gravel. "The city council approved the demolition last week. They're building a shopping mall." There was bitterness in his voice, barely concealed. "They said the observatory was 'obsolete.' A relic of a time when people looked up instead of down."</p>
+
+      <p>Chen climbed the steps. The front door was unlocked—the groundskeeper had been told to expect him. Inside, the air was stale and cold. The main lobby was exactly as he remembered: the marble floor, the faded posters of nebulae and galaxies, the reception desk where an old woman named Auntie Zhang used to brew tea for the late-shift astronomers.</p>
+
+      <p>But the equipment was gone. The displays cases were empty. The only thing left was the telescope.</p>
+
+      <p>He climbed the spiral staircase to the observation deck, his footsteps echoing in the hollow building. The dome's shutters were closed, but a sliver of light cut through where the seals had worn thin.</p>
+
+      <p>Chen crossed to the console and pressed a button. Motors whirred to life, and the dome groaned open, revealing a swath of deepening blue sky. The first stars were just beginning to appear.</p>
+
+      <p>He sat down in the operator's chair. The leather was cracked, the padding worn flat. He ran his fingers over the control panel, tracing the familiar contours of the joysticks and buttons he had once operated with muscle memory alone.</p>
+
+      <p>"You haven't looked at the stars in seven years," Li Ming said quietly. He had followed Chen up without making a sound.</p>
+
+      <p>"I couldn't," Chen said. "Not after what I saw."</p>
+
+      <p>"You know it wasn't real."</p>
+
+      <p>"It was real." Chen's voice was flat. Definitie. "I have the data. I have the photographs. I have recordings of the signal."</p>
+
+      <p>Li Ming sighed. "The committee reviewed your findings. Twice. Three times. Each time they came to the same conclusion: equipment malfunction, atmospheric interference, or—forgive me—human error."</p>
+
+      <p>"Then why did they shut down the observatory?" Chen turned to face him. "If it was just an error, why close the whole facility? Why silence everyone who worked here?"</p>
+
+      <p>Li Ming had no answer for that. He never did.</p>
+
+      <p>Chen turned back to the telescope. Through the eyepiece, he could see the first stars of the evening, pinpricks of light in the vast darkness. He adjusted the focus, and the image sharpened.</p>
+
+      <p>And then he saw it again.</p>
+
+      <p>The same star that had haunted him for seven years. The same impossible flicker. The same pattern that the computers had dismissed as noise, but that he knew—with every fiber of his being—was a signal.</p>
+
+      <p>His hands trembled as he reached for the recording equipment. The red light blinked on.</p>
+
+      <p>"It's still there," he whispered. "It's still there, Li. After all these years."</p>
+
+      <p>Li Ming stepped forward, peered through the secondary eyepiece. For a long moment, he said nothing.</p>
+
+      <p>Then: "That's not possible. I see it too."</p>
+
+      <p>Chen Wei smiled for the first time in seven years. The last star in the sky had not abandoned him after all.</p>
+
+      <!-- Page Navigation -->
+      <div class="mt-16 pt-8 border-t border-[#2a2a2a] flex items-center justify-between sans">
+        <span class="text-sm text-[#8a7e6b]">— 1 —</span>
+        <div class="flex gap-3">
+          <a href="#" class="px-5 py-2.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg text-sm text-[#c4b998] hover:border-[#d4a853]/30 hover:text-[#f0e6c5] transition-all">← Prev</a>
+          <a href="catalog.html" class="px-5 py-2.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg text-sm text-[#c4b998] hover:border-[#d4a853]/30 hover:text-[#f0e6c5] transition-all">Catalog</a>
+          <a href="#" class="px-5 py-2.5 bg-[#d4a853] text-[#0a0a0a] rounded-lg text-sm font-semibold hover:bg-[#e6b95e] transition-all">Next →</a>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</main>
+
+<!-- Bottom Toolbar -->
+<div class="fixed bottom-0 left-0 right-0 bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#2a2a2a] py-3">
+  <div class="max-w-3xl mx-auto px-4 flex items-center justify-between text-sm text-[#8a7e6b] sans">
+    <div class="flex items-center gap-4">
+      <span>Chapter 1 of 48</span>
+      <span class="hidden sm:inline">•</span>
+      <span class="hidden sm:inline">3,842 words</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors hover:text-[#f0e6c5]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+      </button>
+      <button class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors hover:text-[#f0e6c5]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+      </button>
+      <button class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors hover:text-[#f0e6c5]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Font size toggle
+  function setFontSize(size) {
+    const body = document.body;
+    body.classList.remove('font-sm', 'font-md', 'font-lg');
+    body.classList.add('font-' + size);
+    localStorage.setItem('reader-font-size', size);
+  }
+
+  // Restore saved font size
+  const savedSize = localStorage.getItem('reader-font-size') || 'md';
+  setFontSize(savedSize);
+
+  // Reading progress
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('readingProgress').style.width = progress + '%';
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      // Next chapter
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      // Previous chapter
+    }
+  });
+</script>
+</body>
+</html>
