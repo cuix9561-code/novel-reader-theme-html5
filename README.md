@@ -105,7 +105,21 @@ Just drag and drop the folder to:
 
 Zero configuration required — pure static HTML.
 
-## 🛠️ Customization
+## 🛠️ Features & Customization
+
+### Core Highlights
+
+| Feature | Detail |
+|---------|--------|
+| 🌙 **Eye-protection backgrounds** | Three built-in themes — Night (dark charcoal), Sepia (warm paper), Green (soft mint) — all designed to reduce eye strain during extended reading sessions |
+| 🔤 **Typography adjustment ready** | Three font sizes (Small / Medium / Large) with instant switching and localStorage persistence across sessions |
+| ⚡ **Lightweight & Zero-dependency** | Pure HTML5 + Tailwind CDN — no build tools, no npm, no JavaScript frameworks required. Just open and read |
+| 📱 **Mobile-first responsive** | Fluid layout adapts seamlessly from 320px mobile screens to ultrawide desktop monitors |
+| 💾 **Settings persistence** | Font size and display theme preferences saved to `localStorage` — your settings survive page refreshes and browser restarts |
+| 🎛️ **Floating settings panel** | Quick-access control hub pinned to the bottom-right corner — toggle font size, switch themes, and jump to catalog without scrolling to the top |
+| ♿ **Accessibility ready** | Semantic HTML structure, ARIA labels, `prefers-reduced-motion` support, and keyboard-navigable controls |
+
+### Customization Guide
 
 ### Change Novel Content
 
